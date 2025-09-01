@@ -1,11 +1,36 @@
-import React from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/all";
+import React, { useRef } from "react";
 
 const Agence = () => {
+    const imageDivRef = useRef(null);
+    gsap.registerPlugin(ScrollTrigger);
+
+    useGSAP(() => {
+        gsap.to(imageDivRef.current, {
+            scrollTrigger: {
+                trigger: imageDivRef.current,
+                markers: true,
+                start: "top 28%",
+                end: "top -75%",
+                pin: true,
+                scrub: true,
+            },
+        });
+    });
+
+    const imageRef = useRef(null);
+
     return (
-        <>
+        <div>
             <div className="section1">
-                <div className="h-[20vw] w-[15vw] absolute top-72 left-[30vw] rounded-[20px] overflow-hidden">
+                <div
+                    ref={imageDivRef}
+                    className="h-[20vw] w-[15vw] absolute top-72 left-[30vw] rounded-[20px] overflow-hidden"
+                >
                     <img
+                        ref={imageRef}
                         className="h-full w-full object-cover"
                         src="./images/agency1.jpg"
                     ></img>
@@ -58,7 +83,7 @@ const Agence = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 
